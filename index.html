@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 Will You Be My Valentine? 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffd4e5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+        }
+
+        .gif-container {
+            margin: 30px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #ff1493;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ffd4e5, #ffb6d9);
+            color: #ff1493;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .no-btn:hover {
+            background: linear-gradient(135deg, #ffb6d9, #ffa0c9);
+        }
+
+        .message {
+            font-size: 1.1em;
+            color: #ff69b4;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .success-screen {
+            display: none;
+        }
+
+        .success-screen.active {
+            display: block;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .success-screen h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        .success-message {
+            font-size: 1.5em;
+            color: #ff1493;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .hearts {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .question {
+                font-size: 1.4em;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            font-size: 2em;
+            opacity: 0;
+            animation: float 4s ease-in infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="questionScreen">
+        <h1>💖 Valentine's Day 💖</h1>
+        
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Cute cats">
+        </div>
+
+        <div class="question">
+            Dipali 💖<br>Will you be my Valentine?
+        </div>
+
+        <p class="message" id="message">🐱✨ The cats are waiting for your answer! ✨🐱</p>
+
+        <div class="button-container">
+            <button class="yes-btn" onclick="sayYes()">Yes 💖</button>
+            <button class="no-btn" id="noBtn" onclick="sayNo()">No 🙈</button>
+        </div>
+    </div>
+
+    <div class="container success-screen" id="successScreen">
+        <h1>🎉 Yay! 🎉</h1>
+        
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Happy cats">
+        </div>
+
+        <div class="hearts">
+            💕 💖 💗 💓 💝
+        </div>
+
+        <div class="success-message">
+            Yay Dipali! 🥰💖<br>
+            You just made this Valentine special!<br>
+            <br>
+            🌟 The cats are so happy! 🐱💕<br>
+            ✨ This is going to be amazing! ✨
+        </div>
+
+        <div class="hearts">
+            🌸 🦋 🌺 🦋 🌸
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const noMessages = [
+            "Are you sure? 🥺",
+            "But... but... the cats will be sad 🐱💔",
+            "Please reconsider? 🌸",
+            "The kitties are giving you puppy eyes 👀✨",
+            "Just one chance? 🙏💕",
+            "Maybe just a tiny yes? 🤏💖",
+            "The cats prepared a special surprise 🎁🐱",
+            "Pretty please with sprinkles? 🧁💝",
+            "Even the stars want you to say yes ⭐✨",
+            "One little yes would make everyone happy 😊💕"
+        ];
+
+        function sayNo() {
+            const noBtn = document.getElementById('noBtn');
+            const message = document.getElementById('message');
+            
+            // Update message
+            if (noClickCount < noMessages.length) {
+                message.textContent = noMessages[noClickCount];
+                noClickCount++;
+            } else {
+                message.textContent = noMessages[Math.floor(Math.random() * noMessages.length)];
+            }
+
+            // Move button to random position
+            const container = noBtn.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width;
+            const maxY = containerRect.height - btnRect.height;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Add a little shake animation
+            noBtn.style.animation = 'none';
+            setTimeout(() => {
+                noBtn.style.animation = 'shake 0.5s';
+            }, 10);
+        }
+
+        function sayYes() {
+            const questionScreen = document.getElementById('questionScreen');
+            const successScreen = document.getElementById('successScreen');
+            
+            questionScreen.style.display = 'none';
+            successScreen.classList.add('active');
+
+            // Create floating hearts
+            createFloatingHearts();
+        }
+
+        function createFloatingHearts() {
+            const hearts = ['💖', '💕', '💗', '💓', '💝', '❤️'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-hearts';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 300);
+            }
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+```
